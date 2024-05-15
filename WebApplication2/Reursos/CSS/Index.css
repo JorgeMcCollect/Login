@@ -1,0 +1,78 @@
+﻿body {
+    font-family: Arial, sans-serif;
+    background-image: url("fondo.svg");
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#container {
+    max-width: 100%;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#lblInfo {
+    font-size: 20px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group span {
+    font-weight: normal;
+}
+
+.table-user-information > tbody > tr {
+    border-top: 1px solid rgb(221, 221, 221);
+}
+
+.table-user-information > tbody > tr:first-child {
+    border-top: 0;
+}
+
+.table-user-information > tbody > tr > td {
+    border-top: 0;
+}
+
+.table-user-information td {
+    padding: 8px 16px; /* Ajustar el espacio interno de las celdas */
+    border-bottom: 1px solid rgb(221, 221, 221);
+    color: #fff;
+    font-weight: bold;
+}
+
+/* Eliminar el borde inferior de la última fila */
+.table-user-information tr:last-child td {
+    border-bottom: none;
+}
+
+.btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.btn:hover {
+    background-color: #45a049;
+}
+
+a {
+    color: #fff;
+    float: right;
+}
