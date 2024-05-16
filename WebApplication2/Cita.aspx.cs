@@ -17,10 +17,10 @@ namespace WebApplication2
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["Autenticado"] == null || !(bool)Session["Autenticado"])
+           /* if (Session["Autenticado"] == null || !(bool)Session["Autenticado"])
             {
                 Response.Redirect("Login.aspx");
-            }
+            }*/
             //dynamic datosCita = Session["datosCita"];
             dynamic email = Session["usuario"];
 

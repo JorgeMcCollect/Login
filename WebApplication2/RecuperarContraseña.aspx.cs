@@ -7,8 +7,10 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using MailKit.Net.Smtp;
-using MimeKit;
+//using MailKit.Net.Smtp;
+//using MimeKit;
+using System.Net;
+using System.Net.Mail;
 using System.Text.RegularExpressions;
 
 namespace WebApplication2
@@ -72,6 +74,7 @@ namespace WebApplication2
                         {
                             mensajeCodigo.InnerText = "El correo no se encuentra registrado en el sistema";
                         }
+                        sqlConectar.Close();
                     }
                 }
             }
@@ -102,14 +105,65 @@ namespace WebApplication2
             }
             else
             {
-                mensajeCodigo.InnerText = "Se guardo la contraseña";
-                mensajeCodigo.Visible = true;
+                /*mensajeCodigo.InnerText = "Se guardo la contraseña";
+                mensajeCodigo.Visible = true;*/
+                string patron = "Hash";
+                string contraseña = txtContrasenia.Text.Trim();
+
+                string conectar = ConfigurationManager.ConnectionStrings["stringConexion"].ConnectionString;
+                SqlConnection sqlConectar = new SqlConnection(conectar);
+                SqlCommand cmd = new SqlCommand("CambiarContraseña", sqlConectar)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
+                cmd.Parameters.AddWithValue("@Usuario", email);
+                cmd.Parameters.AddWithValue("@Contrasenia_nueva", contraseña);
+                cmd.Parameters.AddWithValue("@Patron", patron);
+
+                cmd.Connection.Open();
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                    string script = "<script>alert('Contraseña actualizada'); window.location.href = 'Login.aspx';</script>";
+                    ClientScript.RegisterStartupScript(this.GetType(), "alert", script);
+                }
+                catch
+                {
+                    string script = "<script>alert('Error al cambiar la contraseña');</script>";
+                    ClientScript.RegisterStartupScript(this.GetType(), "alert", script);
+                }
+
+                cmd.Connection.Close();
             }
         }
 
         private void enviarCorreo(string codigoRecuperacion, string email)
         {
             try
+            {
+                // Configurar cliente SMTP
+                SmtpClient smtpClient = new SmtpClient("smtp.gmail.com");
+                smtpClient.Port = 587;
+                smtpClient.Credentials = new NetworkCredential("mccollectsoporte@gmail.com", "McCollect220424");
+                smtpClient.EnableSsl = true;
+
+                // Crear mensaje de correo
+                MailMessage mail = new MailMessage();
+                mail.From = new MailAddress("mccollectsoporte@gmail.com");
+                mail.To.Add(email);
+                mail.Subject = "Código de recuperación de contraseña";
+                mail.Body = "Su código de recuperación de contraseña es: " + codigoRecuperacion;
+
+                // Enviar correo
+                smtpClient.Send(mail);
+            }
+            catch (Exception ex)
+            {
+                // Manejar cualquier error de envío de correo electrónico aquí
+                mensajeCodigo.InnerText = "Se ha producido un error al enviar el correo electrónico de recuperación: " + ex.Message;
+            }
+
+            /*try
             {
                 var message = new MimeMessage();
                 message.From.Add(new MailboxAddress("Soporte", "mccollectsoporte@gmail.com"));
@@ -132,7 +186,7 @@ namespace WebApplication2
             {
                 // Manejar cualquier error de envío de correo electrónico aquí
                 mensajeCodigo.InnerText = "Se ha producido un error al enviar el correo electrónico de recuperación: " + ex.Message;
-            }
+            }*/
 
         }
 

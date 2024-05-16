@@ -14,7 +14,7 @@ namespace WebApplication2
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["Autenticado"] != null && (bool)Session["Autenticado"])
+            /*if (Session["Autenticado"] != null && (bool)Session["Autenticado"])
             {
                 if (Session["esAdmin"] != null && (bool)Session["esAdmin"])
                 {
@@ -36,8 +36,8 @@ namespace WebApplication2
             else
             {
                 Response.Redirect("Login.aspx");
-            }
-            /*dynamic usuario = Session["usuario"];
+            }*/
+            dynamic usuario = Session["usuario"];
             dynamic datos = Session["datos"];
             lblInfo.Text = "Bienvenido " + datos.Nombre + " verifica tus datos: ";
             lblCorreo.Text = usuario;
@@ -45,7 +45,7 @@ namespace WebApplication2
             lblDireccion.Text = datos.Direccion;
             lblCP.Text = datos.Cp;
             lblPromedio.Text = datos.Promedio.ToString();
-            lblFN.Text = datos.Nacimiento;*/
+            lblFN.Text = datos.Nacimiento;
         }
         protected void btnCita_Click(object sender, EventArgs e)
         {

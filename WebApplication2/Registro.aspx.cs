@@ -15,10 +15,10 @@ namespace WebApplication2
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["Autenticado"] == null || !(bool)Session["Autenticado"])
+            /*if (Session["Autenticado"] == null || !(bool)Session["Autenticado"])
             {
                 Response.Redirect("Login.aspx");
-            }
+            }*/
         }
         protected void btnRegistrar_Click(object sender, EventArgs e)
         {
