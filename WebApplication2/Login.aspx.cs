@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
-using System.Web.Security;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace WebApplication2
 {
@@ -17,14 +11,14 @@ namespace WebApplication2
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
         }
 
         protected void btnIniciarSesion_Click(object sender, EventArgs e)
         {
             string email = txtUsuario.Text.Trim();
             string patron = "Hash";
-            string conectar = ConfigurationManager.ConnectionStrings["stringConexion"].ConnectionString;
+
+            string conectar = DB.Conectando();//ConfigurationManager.ConnectionStrings["stringConexion"].ConnectionString;
             SqlConnection sqlConectar = new SqlConnection(conectar);
             SqlCommand cmd = new SqlCommand("UserLogin", sqlConectar)
             {
@@ -61,6 +55,7 @@ namespace WebApplication2
                     }
                     else
                     {
+                        Session["esAdmin"] = false;
                         SqlCommand cmdDatos = new SqlCommand("MostrarDatos", sqlConectar)
                         {
                             CommandType = CommandType.StoredProcedure
