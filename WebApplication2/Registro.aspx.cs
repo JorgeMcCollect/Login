@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 using System.Data.SqlClient;
 using System.Text.RegularExpressions;
 using System.Configuration;
@@ -15,14 +10,13 @@ namespace WebApplication2
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            /*if (Session["Autenticado"] == null || !(bool)Session["Autenticado"])
+            if (Session["Autenticado"] == null || !(bool)Session["Autenticado"])
             {
                 Response.Redirect("Login.aspx");
-            }*/
+            }
         }
         protected void btnRegistrar_Click(object sender, EventArgs e)
         {
-            //List<string> errores = new List<string>();
             string nombreUsuario = txtNombreUsuario.Text.Trim();
             string email = txtEmail.Text.Trim();
             string contraseña = txtContraseña.Text.Trim();
@@ -33,8 +27,7 @@ namespace WebApplication2
             string promedio = txtPromedio.Text.Trim();
             string patron = "Hash";
 
-            //Conexion a base de datos
-            string conectar = ConfigurationManager.ConnectionStrings["stringConexion"].ConnectionString;
+            string conectar = DB.Conectando();//ConfigurationManager.ConnectionStrings["stringConexion"].ConnectionString;
             SqlConnection sqlConectar = new SqlConnection(conectar);
             SqlCommand cmd = new SqlCommand("UserRegister", sqlConectar)
             {
@@ -66,6 +59,11 @@ namespace WebApplication2
 
             cmd.Connection.Close();
         }
+        protected void lnkCerrarSesion_Click(object sender, EventArgs e)
+        {
+            Session["Autenticado"] = false;
+            //Response.Redirect("Login.aspx");
+        }
 
         protected void txtNombreUsuario_TextChanged(object sender, EventArgs e)
         {
@@ -80,7 +78,6 @@ namespace WebApplication2
                 errorNombre.Visible = false;
             }
         }
-
         protected void txtEmail_TextChanged(object sender, EventArgs e)
         {
             string email = txtEmail.Text.Trim();
@@ -94,16 +91,15 @@ namespace WebApplication2
                 errorEmail.Visible = false;
             }
         }
-
         protected void txtContraseña_TextChanged(object sender, EventArgs e)
         {
             string contraseña = txtContraseña.Text.Trim();
             if (!IsValidPassword(contraseña))
             {
                 errorContraseña.InnerText = "La contraseña no es segura, debe contener al menos: "
-                                          + "1 letra mayuscula "
-                                          + "1 letra minuscula "
-                                          + "1 caracter especial "
+                                          + "1 letra mayúscula "
+                                          + "1 letra minúscula "
+                                          + "1 carácter especial "
                                           + "entre 8-12 caracteres (sin espacios)";
                 errorContraseña.Visible = true;
             }
@@ -112,7 +108,6 @@ namespace WebApplication2
                 errorContraseña.Visible = false;
             }
         }
-
         protected void txtFechaNacimiento_TextChanged(object sender, EventArgs e)
         {
             string fechaNacimiento = txtFechaNacimiento.Text.Trim();
@@ -147,7 +142,7 @@ namespace WebApplication2
             string cP = txtCodigoPostal.Text.Trim();
             if (!IsValidCP(cP))
             {
-                errorCP.InnerText = "Él código postal no es válido";
+                errorCP.InnerText = "El código postal no es válido";
                 errorCP.Visible = true;
             }
             else
@@ -155,7 +150,6 @@ namespace WebApplication2
                 errorCP.Visible = false;
             }
         }
-
         protected void txtPromedio_TextChanged(object sender, EventArgs e)
         {
             string promedio = txtPromedio.Text.Trim();

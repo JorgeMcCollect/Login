@@ -31,7 +31,7 @@ namespace WebApplication2
             if (btnEnviarCodigo.Text == btn1)
             {
                 //Creamos una conexion para verificar si el correo existe en la BD
-                string conectar = ConfigurationManager.ConnectionStrings["stringConexion"].ConnectionString;
+                string conectar = DB.Conectando();//ConfigurationManager.ConnectionStrings["stringConexion"].ConnectionString;
                 using (SqlConnection sqlConectar = new SqlConnection(conectar))
                 {
                     using (SqlCommand cmd = new SqlCommand("VerificarMail", sqlConectar))
@@ -48,7 +48,7 @@ namespace WebApplication2
 
                         sqlConectar.Open();
                         cmd.ExecuteNonQuery();
-
+                         
                         // Obtener el valor del parámetro de salida
                         bool mailExist = (bool)existeParam.Value;
 
@@ -110,7 +110,7 @@ namespace WebApplication2
                 string patron = "Hash";
                 string contraseña = txtContrasenia.Text.Trim();
 
-                string conectar = ConfigurationManager.ConnectionStrings["stringConexion"].ConnectionString;
+                string conectar = DB.Conectando();//ConfigurationManager.ConnectionStrings["stringConexion"].ConnectionString;
                 SqlConnection sqlConectar = new SqlConnection(conectar);
                 SqlCommand cmd = new SqlCommand("CambiarContraseña", sqlConectar)
                 {

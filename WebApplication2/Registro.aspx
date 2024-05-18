@@ -2,7 +2,7 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
 <head runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Registro</title>
@@ -14,7 +14,7 @@
         <form id="form1" runat="server">
             <div class="form-group">
                 <p>Nombre de usuario*</p>
-                <asp:TextBox ID="txtNombreUsuario" runat="server" placeholder="Nombre de usuario" MaxLength="50" required="" OnTextChanged="txtNombreUsuario_TextChanged" AutoPostBack="true"></asp:TextBox>
+                <asp:TextBox ID="txtNombreUsuario" runat="server" placeholder="Nombre de usuario" MaxLength="50" OnTextChanged="txtNombreUsuario_TextChanged" AutoPostBack="true"></asp:TextBox>
             </div>
             <div id="errorNombre" runat="server" class="mensaje-error" style="color: #FF9C9C; font-weight: bold;"> </div>
             <div class="form-group">
@@ -52,10 +52,10 @@
                 <asp:TextBox ID="txtPromedio" runat="server" placeholder="Promedio" MaxLength="10" required="" OnTextChanged="txtPromedio_TextChanged" AutoPostBack="true"></asp:TextBox>
             </div>
             <div id="errorProm" runat="server" class="mensaje-error" style="color: #FF9C9C; font-weight: bold;"> </div>
-            <div class="form-group">
+             <div class="form-group">
                 <asp:Button ID="btnRegistrar" runat="server" Text="Registrar usuario" OnClick="btnRegistrar_Click" CssClass="btn" />
             </div>
-            <a href ="Login.aspx">Cerrar sesión</a>
+            <a href ="Login.aspx" id="lnkCerrarSesion" runat="server" onclick="lnkCerrarSesion_Click">Cerrar sesión</a>
         </form>
     </div>
 </body>

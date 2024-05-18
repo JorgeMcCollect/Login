@@ -55,7 +55,10 @@
             <div class="form-group">
                 <asp:Button ID="btnCita" runat="server" Text="Consultar cita" OnClick="btnCita_Click" CssClass="btn" />
             </div>
-            <a href ="Login.aspx">Cerrar sesión</a>
+            <div class="form-group">
+                <asp:Button ID="btnCerrar" runat="server" Text="Cerrar sesión" OnClick="btnCerrar_Click" style="background: none; border: none; color: blue; text-decoration: underline; cursor: pointer; font-size: 18px;" />
+            </div>
+            <!--<a href ="Login.aspx">Cerrar sesión</a>-->
         </div>
     </form>
 </body>

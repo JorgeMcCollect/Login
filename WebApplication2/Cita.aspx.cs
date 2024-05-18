@@ -7,7 +7,6 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 
@@ -17,14 +16,14 @@ namespace WebApplication2
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-           /* if (Session["Autenticado"] == null || !(bool)Session["Autenticado"])
+            if (Session["Autenticado"] == null || !(bool)Session["Autenticado"])
             {
                 Response.Redirect("Login.aspx");
-            }*/
+            }
             //dynamic datosCita = Session["datosCita"];
             dynamic email = Session["usuario"];
 
-            string conectarC = ConfigurationManager.ConnectionStrings["stringConexion"].ConnectionString;
+            string conectarC = DB.Conectando();//ConfigurationManager.ConnectionStrings["stringConexion"].ConnectionString;
             SqlConnection sqlConectarC = new SqlConnection(conectarC);
             SqlCommand cmdDatosC = new SqlCommand("MostrarDatos", sqlConectarC)
             {
@@ -37,15 +36,15 @@ namespace WebApplication2
 
             if (drDatosC.Read())
             {
-                lblCita.Text = "Nombre:" +
+                lblCita.Text = "Nombre: " +
                 drDatosC.GetString(drDatosC.GetOrdinal("Nombre")) + "<br/>"
-                + "Email: "
+                + "Correo: "
                 + email + "<br/>"
                 + "Edad: "
                 + drDatosC.GetInt32(drDatosC.GetOrdinal("Edad")) + "<br/>"
-                + "Direcion: "
+                + "Direción: "
                 + drDatosC.GetString(drDatosC.GetOrdinal("Direccion")) + "<br/>"
-                + "CP: "
+                + "Código postal: "
                 + drDatosC.GetString(drDatosC.GetOrdinal("Cp")) + "<br/>"
                 + "Promedio: "
                 + drDatosC.GetDouble(drDatosC.GetOrdinal("Promedio")) + "<br/>"
@@ -92,15 +91,16 @@ namespace WebApplication2
         {
             dynamic email = Session["usuario"];
             string rutaPDF = @"C:\LOGIN_Jorge\pdf\";
-            /*if (!Directory.Exists(rutaPDF))
-            {
-                Directory.CreateDirectory(rutaPDF);
-            }*/
             string ruta = rutaPDF + email + ".pdf";
             Response.ContentType = "Application/pdf";
             Response.AppendHeader("Content-Disposition", "attachment; filename=" + (email + ".pdf"));
             Response.TransmitFile(ruta);
             Response.End();
+        }
+        protected void btnCerrar_Click(object sender, EventArgs e)
+        {
+            Session["Autenticado"] = false;
+            Response.Redirect("Login.aspx");
         }
     }
 }
