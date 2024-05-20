@@ -14,7 +14,7 @@
         <form id="form1" runat="server">
             <div class="form-group">
                 <p>Nombre de usuario*</p>
-                <asp:TextBox ID="txtNombreUsuario" runat="server" placeholder="Nombre de usuario" MaxLength="50" OnTextChanged="txtNombreUsuario_TextChanged" AutoPostBack="true"></asp:TextBox>
+                <asp:TextBox ID="txtNombreUsuario" runat="server" placeholder="Nombre de usuario" MaxLength="50"  required="" OnTextChanged="txtNombreUsuario_TextChanged" AutoPostBack="true"></asp:TextBox>
             </div>
             <div id="errorNombre" runat="server" class="mensaje-error" style="color: #FF9C9C; font-weight: bold;"> </div>
             <div class="form-group">
@@ -34,7 +34,7 @@
             <div id="errorFecha" runat="server" class="mensaje-error" style="color: #FF9C9C; font-weight: bold;"> </div>
             <div class="form-group">
                 <p>Edad (años)*</p>
-                <asp:TextBox ID="txtEdad" runat="server" placeholder="Edad" MaxLength="2" required="" OnTextChanged="txtEdad_TextChanged" AutoPostBack="true"></asp:TextBox>
+                <asp:TextBox ID="txtEdad" runat="server" placeholder="Edad" MaxLength="2" required=""></asp:TextBox>
             </div>
             <div id="errorEdad" runat="server" class="mensaje-error" style="color: #FF9C9C; font-weight: bold;"> </div>
             <div class="form-group">
@@ -55,7 +55,10 @@
              <div class="form-group">
                 <asp:Button ID="btnRegistrar" runat="server" Text="Registrar usuario" OnClick="btnRegistrar_Click" CssClass="btn" />
             </div>
-            <a href ="Login.aspx" id="lnkCerrarSesion" runat="server" onclick="lnkCerrarSesion_Click">Cerrar sesión</a>
+            <div class="form-group">
+                <asp:Button ID="btnCerrar" runat="server" Text="Cerrar sesión" OnClick="btnCerrar_Click" style="background: none; border: none; color: blue; text-decoration: underline; cursor: pointer; font-size: 18px;" UseSubmitBehavior="false" />
+            </div>
+            <%--<a href ="Login.aspx" id="lnkCerrarSesion" runat="server" onclick="lnkCerrarSesion_Click">Cerrar sesión</a>--%>
         </form>
     </div>
 </body>

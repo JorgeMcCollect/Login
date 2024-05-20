@@ -14,6 +14,7 @@ namespace WebApplication2
             {
                 Response.Redirect("Login.aspx");
             }
+            txtEdad.Enabled = false;
         }
         protected void btnRegistrar_Click(object sender, EventArgs e)
         {
@@ -59,10 +60,10 @@ namespace WebApplication2
 
             cmd.Connection.Close();
         }
-        protected void lnkCerrarSesion_Click(object sender, EventArgs e)
+        protected void btnCerrar_Click(object sender, EventArgs e)
         {
             Session["Autenticado"] = false;
-            //Response.Redirect("Login.aspx");
+            Response.Redirect("Login.aspx");
         }
 
         protected void txtNombreUsuario_TextChanged(object sender, EventArgs e)
@@ -108,7 +109,7 @@ namespace WebApplication2
                 errorContraseña.Visible = false;
             }
         }
-        protected void txtFechaNacimiento_TextChanged(object sender, EventArgs e)
+        /*protected void txtFechaNacimiento_TextChanged(object sender, EventArgs e)
         {
             string fechaNacimiento = txtFechaNacimiento.Text.Trim();
             if (!IsValidDate(fechaNacimiento))
@@ -120,9 +121,26 @@ namespace WebApplication2
             {
                 errorFecha.Visible = false;
             }
+        }*/
+
+        protected void txtFechaNacimiento_TextChanged(object sender, EventArgs e)
+        {
+            string fechaNacimiento = txtFechaNacimiento.Text.Trim();
+            if (!IsValidDate(fechaNacimiento))
+            {
+                errorFecha.InnerText = "La fecha de nacimiento no es válida";
+                errorFecha.Visible = true;
+                txtEdad.Text = "";
+            }
+            else
+            {
+                errorFecha.Visible = false;
+                // Calcular la edad y actualizar el campo txtEdad
+                txtEdad.Text = CalcularEdad(DateTime.ParseExact(fechaNacimiento, "dd-MM-yyyy", null)).ToString();
+            }
         }
 
-        protected void txtEdad_TextChanged(object sender, EventArgs e)
+        /*protected void txtEdad_TextChanged(object sender, EventArgs e)
         {
             string edad = txtEdad.Text.Trim();
             string fechaNacimiento = txtFechaNacimiento.Text.Trim();
@@ -135,7 +153,7 @@ namespace WebApplication2
             {
                 errorEdad.Visible = false;
             }
-        }
+        }*/
 
         protected void txtCodigoPostal_TextChanged(object sender, EventArgs e)
         {
@@ -164,11 +182,22 @@ namespace WebApplication2
             }
         }
 
+        private int CalcularEdad(DateTime fechaNacimiento)
+        {
+            DateTime fechaActual = DateTime.Today;
+            int edad = fechaActual.Year - fechaNacimiento.Year;
+            if (fechaNacimiento > fechaActual.AddYears(-edad))
+            {
+                edad--;
+            }
+            return edad;
+        }
+
         private bool IsValidName(string nombreUsuario)
         {
-            // Expresión regular que verifica si el nombre contiene solo letras
+            // Expresión regular que verifica si el nombre contiene solo letras y no está vacío
             string pattern = @"^[a-zA-ZñÑ\s]+$";
-            return Regex.IsMatch(nombreUsuario, pattern);
+            return !string.IsNullOrEmpty(nombreUsuario) && Regex.IsMatch(nombreUsuario, pattern);
         }
         private bool IsValidEmail(string email)
         {
@@ -186,20 +215,12 @@ namespace WebApplication2
 
         private bool IsValidDate(string fecha)
         {
-            int calcEdad;
             // Validación de fecha de nacimiento (formato YYYY-MM-DD)
             DateTime date;
             if(DateTime.TryParseExact(fecha, "dd-MM-yyyy", null, System.Globalization.DateTimeStyles.None, out date))
             {
                 if (date.Year <= (DateTime.Today.Year - 18))
                 {
-                    calcEdad = DateTime.Today.Year - date.Year;
-                    if (date.Month > DateTime.Today.Month)
-                    {
-                        --calcEdad;
-                        txtEdad.Text = calcEdad.ToString();
-                        //txtEdad.Enabled = false;
-                    }
                     return true;
                 }
             }
@@ -218,7 +239,7 @@ namespace WebApplication2
             return false;
         }
 
-        private bool IsValidAge(string edad, string fecha)
+        /*private bool IsValidAge(string edad, string fecha)
         {
             // Validación de edad en valor entero
             int age, calcEdad;
@@ -226,8 +247,8 @@ namespace WebApplication2
             DateTime.TryParseExact(fecha, "dd-MM-yyyy", null, System.Globalization.DateTimeStyles.None, out date1);
             if (int.TryParse(edad, out age))
             {
-                // Verificar si la edad es positiva y mayor que cero
-                if (age > 0 && age < 100)
+                // Verificar si la edad es positiva y mayor que 18
+                if (age > 18 && age < 100)
                 {
                     //Verificar que la edad coincida con la fecha de nacimiento
                     calcEdad = DateTime.Today.Year - date1.Year;
@@ -240,7 +261,7 @@ namespace WebApplication2
                 }
             }
             return false;
-        }
+        }*/
 
         private bool IsValidCP(string cP)
         {
