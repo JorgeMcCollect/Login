@@ -24,12 +24,12 @@
             <div id="errorEmail" runat="server" class="mensaje-error" style="color: #FF9C9C; font-weight: bold;"> </div>
             <div class="form-group">
                 <p>Contraseña*</p>
-                <asp:TextBox ID="txtContraseña" type="password" runat="server" placeholder="Contraseña" MinLength="8" MaxLength="12" required="" OnTextChanged="txtContraseña_TextChanged" AutoPostBack="true"></asp:TextBox>
+                <asp:TextBox ID="txtContraseña" type="password" runat="server" placeholder="Contraseña" MaxLength="12" required="" OnTextChanged="txtContraseña_TextChanged" AutoPostBack="true"></asp:TextBox>
             </div>
             <div id="errorContraseña" runat="server" class="mensaje-error" style="color: #FF9C9C; font-weight: bold;"> </div>
             <div class="form-group">
-                <p>Fecha de nacimiento (DD-MM-YYYY)*</p>
-                <asp:TextBox ID="txtFechaNacimiento" runat="server" placeholder="Fecha de nacimiento (DD-MM-YYYY)" MaxLength="10" required="" OnTextChanged="txtFechaNacimiento_TextChanged" AutoPostBack="true"></asp:TextBox>
+                <p>Fecha de nacimiento (DD-MM-AAAA)*</p>
+                <asp:TextBox ID="txtFechaNacimiento" runat="server" placeholder="Fecha de nacimiento (DD-MM-AAAA)" MaxLength="10" required="" OnTextChanged="txtFechaNacimiento_TextChanged" AutoPostBack="true"></asp:TextBox>
             </div>
             <div id="errorFecha" runat="server" class="mensaje-error" style="color: #FF9C9C; font-weight: bold;"> </div>
             <div class="form-group">
