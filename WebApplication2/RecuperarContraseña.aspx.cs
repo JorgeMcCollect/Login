@@ -144,12 +144,12 @@ namespace WebApplication2
                 // Configurar cliente SMTP
                 SmtpClient smtpClient = new SmtpClient("smtp.gmail.com");
                 smtpClient.Port = 587;
-                smtpClient.Credentials = new NetworkCredential("mccollectsoporte@gmail.com", "McCollect220424");
+                smtpClient.Credentials = new NetworkCredential("notificaciones@mccollect.com.mx", "fqgdogwxxalpsfpu");
                 smtpClient.EnableSsl = true;
 
                 // Crear mensaje de correo
                 MailMessage mail = new MailMessage();
-                mail.From = new MailAddress("mccollectsoporte@gmail.com");
+                mail.From = new MailAddress("notificaciones@mccollect.com.mx");
                 mail.To.Add(email);
                 mail.Subject = "Código de recuperación de contraseña";
                 mail.Body = "Su código de recuperación de contraseña es: " + codigoRecuperacion;
