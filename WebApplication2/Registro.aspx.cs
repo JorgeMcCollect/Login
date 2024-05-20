@@ -196,8 +196,8 @@ namespace WebApplication2
         private bool IsValidName(string nombreUsuario)
         {
             // Expresión regular que verifica si el nombre contiene solo letras y no está vacío
-            string pattern = @"^[a-zA-ZñÑ\s]+$";
-            return !string.IsNullOrEmpty(nombreUsuario) && Regex.IsMatch(nombreUsuario, pattern);
+            string pattern = @"^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\s]+$";
+            return Regex.IsMatch(nombreUsuario, pattern);
         }
         private bool IsValidEmail(string email)
         {
