@@ -58,7 +58,6 @@
             <div class="form-group">
                 <asp:Button ID="btnCerrar" runat="server" Text="Cerrar sesión" OnClick="btnCerrar_Click" style="background: none; border: none; color: blue; text-decoration: underline; cursor: pointer; font-size: 18px;" />
             </div>
-            <!--<a href ="Login.aspx" id="lnkCerrarSesion" runat="server" onclick="lnkCerrarSesion_Click">Cerrar sesión</a>-->
         </div>
     </form>
 </body>
