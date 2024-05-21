@@ -85,7 +85,6 @@ namespace WebApplication2
 
                 if(codigoUsuario == codigoGenerado)
                 {
-                    //mensajeCodigo.InnerText = "Los codigos coinciden";
                     lblCorreo.Visible = false;
                     txtUsuario.Visible = false;
                     mensajeCodigo.Visible = false;
@@ -105,8 +104,6 @@ namespace WebApplication2
             }
             else
             {
-                /*mensajeCodigo.InnerText = "Se guardo la contraseña";
-                mensajeCodigo.Visible = true;*/
                 string patron = "Hash";
                 string contraseña = txtContrasenia.Text.Trim();
 
@@ -162,32 +159,6 @@ namespace WebApplication2
                 // Manejar cualquier error de envío de correo electrónico aquí
                 mensajeCodigo.InnerText = "Se ha producido un error al enviar el correo electrónico de recuperación: " + ex.Message;
             }
-
-            /*try
-            {
-                var message = new MimeMessage();
-                message.From.Add(new MailboxAddress("Soporte", "mccollectsoporte@gmail.com"));
-                message.To.Add(new MailboxAddress("", email));
-                message.Subject = "Código de recuperación de contraseña";
-                message.Body = new TextPart("plain")
-                {
-                    Text = "Su código de recuperación de contraseña es: " + codigoRecuperacion
-                };
-
-                using (var client = new SmtpClient())
-                {
-                    client.Connect("smtp.gmail.com", 587, MailKit.Security.SecureSocketOptions.StartTls);
-                    client.Authenticate("mccollectsoporte@gmail.com", "McCollect220424");
-                    client.Send(message);
-                    client.Disconnect(true);
-                }
-            }
-            catch (Exception ex)
-            {
-                // Manejar cualquier error de envío de correo electrónico aquí
-                mensajeCodigo.InnerText = "Se ha producido un error al enviar el correo electrónico de recuperación: " + ex.Message;
-            }*/
-
         }
 
         protected void txtContraseña_TextChanged(object sender, EventArgs e)
